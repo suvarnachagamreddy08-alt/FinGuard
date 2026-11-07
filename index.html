@@ -1,0 +1,812 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinGuard | Financial Safety & Awareness</title>
+
+<style>
+:root {
+  --navy: #10243e;
+  --blue: #173f65;
+  --teal: #12b8a6;
+  --light: #f3f8fb;
+  --white: #ffffff;
+  --text: #26384b;
+  --muted: #64748b;
+  --border: #dce7ee;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--light);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+header {
+  background: var(--navy);
+  color: white;
+  padding: 15px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo { font-size: 25px; font-weight: bold; }
+.logo span { color: var(--teal); }
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover { color: var(--teal); }
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 11px 17px;
+  background: var(--teal);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #079989;
+  transform: translateY(-1px);
+}
+
+.lang-btn { background: white; color: var(--navy); }
+
+.hero {
+  background: linear-gradient(120deg, #10243e, #17617b);
+  color: white;
+  padding: 85px 7%;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 5vw, 55px);
+  margin-bottom: 18px;
+}
+
+.hero h1 span { color: var(--teal); }
+
+.hero p {
+  max-width: 680px;
+  margin: auto;
+  color: #e0edf4;
+  font-size: 17px;
+}
+
+.hero button { margin-top: 25px; padding: 13px 25px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  max-width: 1000px;
+  margin: -30px auto 30px;
+  padding: 0 20px;
+  position: relative;
+}
+
+.stat {
+  background: white;
+  padding: 22px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 5px 20px #10243e12;
+}
+
+.stat strong {
+  display: block;
+  font-size: 25px;
+  color: var(--teal);
+}
+
+.section {
+  padding: 65px 7%;
+  scroll-margin-top: 90px;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.section-heading h2 {
+  font-size: 30px;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.section-heading p { color: var(--muted); }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 25px;
+  border-radius: 13px;
+  box-shadow: 0 5px 18px #10243e0a;
+}
+
+.card .emoji { font-size: 32px; margin-bottom: 12px; }
+.card h3 { color: var(--blue); margin-bottom: 8px; }
+.card p { color: var(--muted); margin-bottom: 15px; }
+.card button { margin-top: 5px; }
+
+.details {
+  display: none;
+  background: #eaf8f6;
+  border-left: 4px solid var(--teal);
+  border-radius: 8px;
+  padding: 15px;
+  margin-top: 15px;
+}
+
+.details.show { display: block; }
+
+.panel {
+  max-width: 850px;
+  margin: auto;
+  padding: 28px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 5px 20px #10243e0c;
+}
+
+.panel h3 { color: var(--navy); margin-bottom: 15px; }
+
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.check-row input { margin-top: 6px; accent-color: var(--teal); }
+
+.result {
+  margin-top: 18px;
+  padding: 15px;
+  background: #eef8f7;
+  border-radius: 8px;
+  min-height: 20px;
+}
+
+.quiz-box {
+  max-width: 750px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 14px;
+  background: white;
+  border: 1px solid var(--border);
+}
+
+.progress {
+  color: var(--teal);
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.question {
+  color: var(--navy);
+  font-size: 21px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.answers {
+  display: grid;
+  gap: 12px;
+}
+
+.answers button {
+  text-align: left;
+  background: #edf4f8;
+  color: var(--navy);
+  border: 1px solid var(--border);
+}
+
+.answers button:hover { background: #dff5f1; }
+
+.answers button:disabled {
+  opacity: 0.8;
+  cursor: default;
+  transform: none;
+}
+
+.quiz-actions { margin-top: 20px; }
+
+.challenge-message {
+  background: #f2f8fa;
+  border-radius: 10px;
+  padding: 18px;
+  margin: 18px 0;
+  font-size: 17px;
+}
+
+.challenge-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.secondary { background: var(--blue); }
+
+footer {
+  background: var(--navy);
+  color: white;
+  padding: 35px 7%;
+  text-align: center;
+}
+
+footer p { color: #cbd8e5; margin-top: 8px; }
+
+footer a { color: #5ce0d1; }
+
+.small-note {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 15px;
+}
+
+@media(max-width: 650px) {
+  header { justify-content: center; }
+  nav { justify-content: center; }
+  .section { padding: 45px 5%; }
+  .hero { padding: 65px 5%; }
+  .panel, .quiz-box { padding: 20px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Fin<span>Guard</span> 🛡️</div>
+
+  <nav>
+    <a href="#home" data-en="Home" data-te="హోమ్">Home</a>
+    <a href="#learn" data-en="Learn" data-te="నేర్చుకోండి">Learn</a>
+    <a href="#safety" data-en="Safety Check" data-te="భద్రత తనిఖీ">Safety Check</a>
+    <a href="#quiz" data-en="Quiz" data-te="క్విజ్">Quiz</a>
+    <button class="lang-btn" id="languageBtn">తెలుగు</button>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" id="home">
+  <h1 data-en="Protect Your Money. <span>Protect Your Future.</span>"
+      data-te="మీ డబ్బును కాపాడుకోండి. <span>మీ భవిష్యత్తును కాపాడుకోండి.</span>">
+    Protect Your Money. <span>Protect Your Future.</span>
+  </h1>
+
+  <p data-en="Learn financial basics, identify online scams, and make smarter financial decisions with FinGuard."
+     data-te="FinGuard తో ఆర్థిక విషయాలను నేర్చుకోండి, ఆన్‌లైన్ మోసాలను గుర్తించండి మరియు తెలివైన ఆర్థిక నిర్ణయాలు తీసుకోండి.">
+    Learn financial basics, identify online scams, and make smarter financial decisions with FinGuard.
+  </p>
+
+  <button onclick="document.getElementById('learn').scrollIntoView()"
+    data-en="Start Learning →" data-te="నేర్చుకోవడం ప్రారంభించండి →">
+    Start Learning →
+  </button>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <strong>01</strong>
+    <span data-en="Learn" data-te="నేర్చుకోండి">Learn</span>
+  </div>
+  <div class="stat">
+    <strong>02</strong>
+    <span data-en="Identify" data-te="గుర్తించండి">Identify</span>
+  </div>
+  <div class="stat">
+    <strong>03</strong>
+    <span data-en="Protect" data-te="రక్షించుకోండి">Protect</span>
+  </div>
+</div>
+
+<section class="section" id="learn">
+  <div class="section-heading">
+    <h2 data-en="Learn & Stay Financially Safe"
+        data-te="నేర్చుకోండి మరియు ఆర్థికంగా సురక్షితంగా ఉండండి">
+      Learn & Stay Financially Safe
+    </h2>
+    <p data-en="Build your financial knowledge one step at a time."
+       data-te="మీ ఆర్థిక పరిజ్ఞానాన్ని ఒక్కో అడుగుగా పెంచుకోండి.">
+      Build your financial knowledge one step at a time.
+    </p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="emoji">💰</div>
+      <h3 data-en="Financial Basics" data-te="ఆర్థిక ప్రాథమిక విషయాలు">Financial Basics</h3>
+      <p data-en="Understand savings, investments, risk and returns."
+         data-te="పొదుపు, పెట్టుబడులు, రిస్క్ మరియు రాబడుల గురించి తెలుసుకోండి.">
+        Understand savings, investments, risk and returns.
+      </p>
+      <button onclick="showLesson('basics')"
+        data-en="Explore Lesson" data-te="పాఠం చూడండి">Explore Lesson</button>
+      <div class="details" id="basicsDetails"></div>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🚨</div>
+      <h3 data-en="Scam Awareness" data-te="మోసాలపై అవగాహన">Scam Awareness</h3>
+      <p data-en="Recognize fake offers, investment fraud and phishing."
+         data-te="నకిలీ ఆఫర్లు, పెట్టుబడి మోసాలు మరియు ఫిషింగ్‌ను గుర్తించండి.">
+        Recognize fake offers, investment fraud and phishing.
+      </p>
+      <button onclick="showLesson('scams')"
+        data-en="Explore Lesson" data-te="పాఠం చూడండి">Explore Lesson</button>
+      <div class="details" id="scamsDetails"></div>
+    </div>
+
+    <div class="card">
+      <div class="emoji">🔐</div>
+      <h3 data-en="Digital Safety" data-te="డిజిటల్ భద్రత">Digital Safety</h3>
+      <p data-en="Keep your accounts, passwords and personal data safe."
+         data-te="మీ ఖాతాలు, పాస్‌వర్డ్‌లు మరియు వ్యక్తిగత సమాచారాన్ని సురక్షితంగా ఉంచండి.">
+        Keep your accounts, passwords and personal data safe.
+      </p>
+      <button onclick="showLesson('digital')"
+        data-en="Explore Lesson" data-te="పాఠం చూడండి">Explore Lesson</button>
+      <div class="details" id="digitalDetails"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="safety">
+  <div class="section-heading">
+    <h2 data-en="Investment Safety Checker" data-te="పెట్టుబడి భద్రత తనిఖీ">
+      Investment Safety Checker
+    </h2>
+    <p data-en="Select the warning signs you notice in an investment offer."
+       data-te="పెట్టుబడి ఆఫర్‌లో కనిపించే హెచ్చరిక సంకేతాలను ఎంచుకోండి.">
+      Select the warning signs you notice in an investment offer.
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3 data-en="Does the offer show any of these signs?"
+        data-te="ఈ ఆఫర్‌లో క్రింది సంకేతాలు ఉన్నాయా?">
+      Does the offer show any of these signs?
+    </h3>
+
+    <label class="check-row">
+      <input type="checkbox" class="warning">
+      <span data-en="Guaranteed high returns with zero risk"
+            data-te="ఎలాంటి రిస్క్ లేకుండా అధిక లాభాలకు హామీ">Guaranteed high returns with zero risk</span>
+    </label>
+
+    <label class="check-row">
+      <input type="checkbox" class="warning">
+      <span data-en="Pressure to invest immediately"
+            data-te="వెంటనే పెట్టుబడి పెట్టమని ఒత్తిడి">Pressure to invest immediately</span>
+    </label>
+
+    <label class="check-row">
+      <input type="checkbox" class="warning">
+      <span data-en="No clear company or registration details"
+            data-te="కంపెనీ లేదా రిజిస్ట్రేషన్ వివరాలు స్పష్టంగా లేకపోవడం">No clear company or registration details</span>
+    </label>
+
+    <label class="check-row">
+      <input type="checkbox" class="warning">
+      <span data-en="Requests for OTP, PIN or passwords"
+            data-te="OTP, PIN లేదా పాస్‌వర్డ్ అడగడం">Requests for OTP, PIN or passwords</span>
+    </label>
+
+    <label class="check-row">
+      <input type="checkbox" class="warning">
+      <span data-en="Unverified links or unknown payment accounts"
+            data-te="ధృవీకరించని లింకులు లేదా తెలియని చెల్లింపు ఖాతాలు">Unverified links or unknown payment accounts</span>
+    </label>
+
+    <br>
+    <button onclick="checkSafety()" data-en="Check Warning Signs"
+      data-te="హెచ్చరిక సంకేతాలను తనిఖీ చేయండి">Check Warning Signs</button>
+
+    <div class="result" id="safetyResult" aria-live="polite"></div>
+    <p class="small-note"
+      data-en="Educational tool only. It cannot confirm whether an offer is fraudulent."
+      data-te="ఇది విద్యాపరమైన సాధనం మాత్రమే. ఒక ఆఫర్ మోసమో కాదో ఖచ్చితంగా నిర్ధారించలేదు.">
+      Educational tool only. It cannot confirm whether an offer is fraudulent.
+    </p>
+  </div>
+</section>
+
+<section class="section" id="spotter">
+  <div class="section-heading">
+    <h2 data-en="Scam Spotter Challenge" data-te="మోసాన్ని గుర్తించే ఛాలెంజ్">
+      Scam Spotter Challenge
+    </h2>
+    <p data-en="Can you identify a suspicious message?"
+       data-te="అనుమానాస్పద సందేశాన్ని మీరు గుర్తించగలరా?">
+      Can you identify a suspicious message?
+    </p>
+  </div>
+
+  <div class="panel">
+    <h3 data-en="Read this message carefully:"
+        data-te="ఈ సందేశాన్ని జాగ్రత్తగా చదవండి:">
+      Read this message carefully:
+    </h3>
+
+    <div class="challenge-message"
+      data-en="Congratulations! You are selected for a special investment offer. Invest ₹5,000 today and get ₹50,000 guaranteed profit tomorrow! Pay immediately!"
+      data-te="అభినందనలు! మీకు ప్రత్యేక పెట్టుబడి ఆఫర్ వచ్చింది. ఈరోజు ₹5,000 పెట్టుబడి పెట్టి రేపు ₹50,000 హామీ లాభం పొందండి! వెంటనే చెల్లించండి!">
+      Congratulations! You are selected for a special investment offer.
+      Invest ₹5,000 today and get ₹50,000 guaranteed profit tomorrow! Pay immediately!
+    </div>
+
+    <p data-en="What do you think about this message?"
+       data-te="ఈ సందేశం గురించి మీ అభిప్రాయం ఏమిటి?">
+      What do you think about this message?
+    </p>
+
+    <br>
+    <div class="challenge-actions">
+      <button class="secondary" id="genuineBtn"
+        onclick="spotAnswer(false)"
+        data-en="Genuine" data-te="నిజమైనది">Genuine</button>
+      <button id="suspiciousBtn" onclick="spotAnswer(true)"
+        data-en="Suspicious" data-te="అనుమానాస్పదం">Suspicious</button>
+      <button class="secondary" onclick="resetSpot()"
+        data-en="Try Again" data-te="మళ్లీ ప్రయత్నించండి">Try Again</button>
+    </div>
+
+    <div class="result" id="spotResult" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="section" id="quiz">
+  <div class="section-heading">
+    <h2 data-en="Test Your Knowledge" data-te="మీ జ్ఞానాన్ని పరీక్షించుకోండి">
+      Test Your Knowledge
+    </h2>
+    <p data-en="Answer these questions to check your financial awareness."
+       data-te="మీ ఆర్థిక అవగాహనను పరీక్షించుకోవడానికి ఈ ప్రశ్నలకు సమాధానం ఇవ్వండి.">
+      Answer these questions to check your financial awareness.
+    </p>
+  </div>
+
+  <div class="quiz-box">
+    <div class="progress" id="quizProgress">Question 1 of 3</div>
+    <div class="question" id="question"></div>
+    <div class="answers" id="answers"></div>
+    <div class="result" id="quizResult" aria-live="polite"></div>
+    <div class="quiz-actions">
+      <button id="nextBtn" style="display:none"
+        data-en="Next Question →" data-te="తదుపరి ప్రశ్న →">Next Question →</button>
+      <button id="restartBtn" class="secondary" style="display:none"
+        data-en="Restart Quiz" data-te="క్విజ్ మళ్లీ ప్రారంభించండి">Restart Quiz</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="help">
+  <div class="section-heading">
+    <h2 data-en="Need Help? Use Official Resources"
+        data-te="సహాయం కావాలా? అధికారిక వనరులను ఉపయోగించండి">
+      Need Help? Use Official Resources
+    </h2>
+    <p data-en="Use trusted government and regulatory websites."
+       data-te="నమ్మకమైన ప్రభుత్వ మరియు నియంత్రణ సంస్థల వెబ్‌సైట్‌లను ఉపయోగించండి.">
+      Use trusted government and regulatory websites.
+    </p>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="emoji">🚔</div>
+      <h3>National Cyber Crime Portal</h3>
+      <p data-en="Report suspected cybercrime in India."
+         data-te="భారతదేశంలో సైబర్ నేరాలను నివేదించండి.">
+        Report suspected cybercrime in India.
+      </p>
+      <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener">
+        <button data-en="Visit Portal" data-te="వెబ్‌సైట్ చూడండి">Visit Portal</button>
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="emoji">📊</div>
+      <h3>SEBI</h3>
+      <p data-en="Visit India's securities market regulator."
+         data-te="భారతదేశ సెక్యూరిటీస్ మార్కెట్ నియంత్రణ సంస్థను సందర్శించండి.">
+        Visit India's securities market regulator.
+      </p>
+      <a href="https://www.sebi.gov.in/" target="_blank" rel="noopener">
+        <button data-en="Visit SEBI" data-te="SEBI చూడండి">Visit SEBI</button>
+      </a>
+    </div>
+
+    <div class="card">
+      <div class="emoji">📚</div>
+      <h3>SEBI Investor</h3>
+      <p data-en="Learn about safe investing and investor awareness."
+         data-te="సురక్షిత పెట్టుబడులు మరియు పెట్టుబడిదారుల అవగాహన గురించి తెలుసుకోండి.">
+        Learn about safe investing and investor awareness.
+      </p>
+      <a href="https://investor.sebi.gov.in/" target="_blank" rel="noopener">
+        <button data-en="Learn More" data-te="మరింత తెలుసుకోండి">Learn More</button>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <h2>FinGuard 🛡️</h2>
+  <p data-en="Building financial awareness for a safer digital future."
+     data-te="సురక్షితమైన డిజిటల్ భవిష్యత్తు కోసం ఆర్థిక అవగాహనను పెంపొందించడం.">
+    Building financial awareness for a safer digital future.
+  </p>
+  <p data-en="Educational purpose only. Always verify financial information through official sources."
+     data-te="విద్యాపరమైన ప్రయోజనం కోసం మాత్రమే. ఆర్థిక సమాచారాన్ని ఎల్లప్పుడూ అధికారిక వనరుల ద్వారా ధృవీకరించండి.">
+    Educational purpose only. Always verify financial information through official sources.
+  </p>
+  <p>Cyber Fraud Helpline: <strong>1930</strong></p>
+  <p>© 2026 FinGuard. All rights reserved.</p>
+</footer>
+
+<script>
+let telugu = false;
+
+/* Lesson content */
+const lessons = {
+  basics: {
+    en: "Savings: Money kept for future needs. Stocks: Small ownership units in a company. Mutual funds: Investments that pool money from many investors. Risk: The possibility of losing money. Returns: The gain or loss from an investment.",
+    te: "పొదుపు: భవిష్యత్తు అవసరాల కోసం దాచిన డబ్బు. స్టాక్స్: ఒక కంపెనీలో చిన్న యాజమాన్య వాటాలు. మ్యూచువల్ ఫండ్స్: అనేక మంది పెట్టుబడిదారుల డబ్బును కలిపి పెట్టుబడి పెట్టే విధానం. రిస్క్: డబ్బు నష్టపోయే అవకాశం. రాబడి: పెట్టుబడి ద్వారా వచ్చే లాభం లేదా నష్టం."
+  },
+  scams: {
+    en: "Investment scams promise unrealistic profits. Phishing messages trick you into sharing personal information. Never trust urgent money requests or guaranteed returns without verification.",
+    te: "పెట్టుబడి మోసాలు అసాధ్యమైన లాభాలను హామీ ఇస్తాయి. ఫిషింగ్ సందేశాలు మీ వ్యక్తిగత సమాచారాన్ని దొంగిలించడానికి ప్రయత్నిస్తాయి. ధృవీకరించకుండా అత్యవసర డబ్బు అభ్యర్థనలు లేదా హామీ లాభాలను నమ్మవద్దు."
+  },
+  digital: {
+    en: "Never share your OTP, PIN or password. Use strong and unique passwords. Avoid unknown links. Enable two-factor authentication and verify website addresses before making payments.",
+    te: "మీ OTP, PIN లేదా పాస్‌వర్డ్‌ను ఎవరితోనూ పంచుకోవద్దు. బలమైన ప్రత్యేక పాస్‌వర్డ్‌లను ఉపయోగించండి. తెలియని లింక్‌లను తెరవవద్దు. రెండు-దశల ధృవీకరణను ప్రారంభించండి."
+  }
+};
+
+function showLesson(type) {
+  const box = document.getElementById(type + "Details");
+  box.textContent = lessons[type][telugu ? "te" : "en"];
+  box.classList.toggle("show");
+}
+
+/* Investment safety checker */
+function checkSafety() {
+  const count = document.querySelectorAll(".warning:checked").length;
+  const result = document.getElementById("safetyResult");
+
+  if (count === 0) {
+    result.textContent = telugu
+      ? "మీరు ఎలాంటి హెచ్చరిక సంకేతాలను ఎంచుకోలేదు. అయినప్పటికీ ఆఫర్‌ను అధికారికంగా ధృవీకరించండి."
+      : "You selected no warning signs. Still verify the offer through official sources.";
+  } else {
+    result.textContent = telugu
+      ? count + " హెచ్చరిక సంకేతాలు ఎంచుకున్నారు. జాగ్రత్త! డబ్బు పంపే ముందు అధికారికంగా ధృవీకరించండి."
+      : count + " warning sign(s) selected. Be careful! Verify the offer officially before sending money.";
+  }
+}
+
+/* Scam Spotter */
+function spotAnswer(correct) {
+  const result = document.getElementById("spotResult");
+
+  if (correct) {
+    result.textContent = telugu
+      ? "సరైన సమాధానం! 🎉 భారీ లాభాలకు హామీ ఇవ్వడం, వెంటనే డబ్బు పంపమని ఒత్తిడి చేయడం మోసానికి సంకేతాలు. ధృవీకరించకుండా డబ్బు పంపవద్దు."
+      : "Correct! 🎉 Guaranteed huge profits and urgent payment requests are warning signs. Never send money without verification.";
+  } else {
+    result.textContent = telugu
+      ? "మళ్లీ ప్రయత్నించండి! ⚠️ ఈ సందేశంలో మోసానికి సంబంధించిన హెచ్చరిక సంకేతాలు ఉన్నాయి."
+      : "Not quite! ⚠️ This message has scam warning signs. Guaranteed returns and pressure to pay immediately are suspicious.";
+  }
+}
+
+function resetSpot() {
+  document.getElementById("spotResult").textContent = "";
+}
+
+/* Quiz questions */
+const questions = [
+  {
+    en: "Can an investment guarantee high returns with zero risk?",
+    te: "ఎలాంటి రిస్క్ లేకుండా అధిక లాభాలు హామీ ఇవ్వగలరా?",
+    options: ["Yes", "No"],
+    teluguOptions: ["అవును", "కాదు"],
+    correct: 1,
+    explanation: "High guaranteed returns with no risk are a warning sign."
+  },
+  {
+    en: "Should you share your OTP with someone who calls you?",
+    te: "ఫోన్ చేసిన వ్యక్తికి మీ OTP చెప్పాలా?",
+    options: ["Yes", "No"],
+    teluguOptions: ["అవును", "కాదు"],
+    correct: 1,
+    explanation: "Never share your OTP with anyone."
+  },
+  {
+    en: "What should you do before trusting an investment offer?",
+    te: "పెట్టుబడి ఆఫర్‌ను నమ్మే ముందు ఏమి చేయాలి?",
+    options: ["Verify official information", "Pay immediately"],
+    teluguOptions: ["అధికారికంగా తనిఖీ చేయాలి", "వెంటనే డబ్బులు పంపాలి"],
+    correct: 0,
+    explanation: "Always verify the offer through reliable official sources."
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+let quizFinished = false;
+
+function renderQuestion() {
+  answered = false;
+  quizFinished = false;
+
+  const q = questions[current];
+  document.getElementById("quizProgress").textContent = telugu
+    ? "ప్రశ్న " + (current + 1) + " / " + questions.length
+    : "Question " + (current + 1) + " of " + questions.length;
+
+  document.getElementById("question").textContent = telugu ? q.te : q.en;
+  document.getElementById("quizResult").textContent = "";
+  document.getElementById("nextBtn").style.display = "none";
+  document.getElementById("restartBtn").style.display = "none";
+
+  const answers = document.getElementById("answers");
+  answers.innerHTML = "";
+
+  const options = telugu ? q.teluguOptions : q.options;
+
+  options.forEach((option, index) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.textContent = option;
+    btn.addEventListener("click", () => selectAnswer(index));
+    answers.appendChild(btn);
+  });
+}
+
+function selectAnswer(index) {
+  if (answered || quizFinished) return;
+  answered = true;
+
+  const q = questions[current];
+  const correct = index === q.correct;
+
+  if (correct) score++;
+
+  document.querySelectorAll("#answers button").forEach(button => {
+    button.disabled = true;
+  });
+
+  document.getElementById("quizResult").textContent =
+    (correct
+      ? (telugu ? "సరైన సమాధానం! " : "Correct! ")
+      : (telugu ? "సరైన సమాధానం కాదు. " : "Not quite. ")) +
+    (telugu ? "వివరణ: " : "Explanation: ") + q.explanation;
+
+  const nextBtn = document.getElementById("nextBtn");
+  nextBtn.style.display = "inline-block";
+  nextBtn.textContent = current === questions.length - 1
+    ? (telugu ? "ఫలితాలు చూడండి" : "See Results")
+    : (telugu ? "తదుపరి ప్రశ్న →" : "Next Question →");
+}
+
+function nextQuestion() {
+  if (!answered || quizFinished) return;
+
+  if (current < questions.length - 1) {
+    current++;
+    renderQuestion();
+  } else {
+    quizFinished = true;
+    document.getElementById("quizProgress").textContent =
+      telugu ? "క్విజ్ పూర్తయింది!" : "Quiz Completed!";
+
+    document.getElementById("question").textContent = telugu
+      ? "మీ స్కోరు: " + score + " / " + questions.length
+      : "Your Score: " + score + " / " + questions.length;
+
+    document.getElementById("answers").innerHTML = "";
+    document.getElementById("quizResult").textContent = telugu
+      ? "క్విజ్ పూర్తి చేసినందుకు ధన్యవాదాలు!"
+      : "Thank you for completing the quiz!";
+
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("restartBtn").style.display = "inline-block";
+  }
+}
+
+function restartQuiz() {
+  current = 0;
+  score = 0;
+  answered = false;
+  quizFinished = false;
+  renderQuestion();
+}
+
+/* Language toggle */
+function toggleLanguage() {
+  telugu = !telugu;
+  document.documentElement.lang = telugu ? "te" : "en";
+
+  document.querySelectorAll("[data-en][data-te]").forEach(element => {
+    element.innerHTML = telugu
+      ? element.dataset.te
+      : element.dataset.en;
+  });
+
+  document.getElementById("languageBtn").textContent =
+    telugu ? "English" : "తెలుగు";
+
+  document.getElementById("safetyResult").textContent = "";
+  document.getElementById("spotResult").textContent = "";
+
+  document.querySelectorAll(".warning").forEach(item => {
+    item.checked = false;
+  });
+
+  document.querySelectorAll(".details.show").forEach(box => {
+    const type = box.id.replace("Details", "");
+    box.textContent = lessons[type][telugu ? "te" : "en"];
+  });
+
+  renderQuestion();
+}
+
+/* Connect buttons */
+document.getElementById("languageBtn").addEventListener("click", toggleLanguage);
+document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+document.getElementById("restartBtn").addEventListener("click", restartQuiz);
+
+/* Start quiz when page loads */
+renderQuestion();
+</script>
+
+</body>
+</html>
